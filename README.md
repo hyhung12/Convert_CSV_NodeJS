@@ -80,6 +80,6 @@ async function exportToCsv() {
 }
 
 exportToCsv();
-
 ```
-
+Synchronous function: Math or string-manipulate function
+Asynchronous function:  Network request or database queries (has callbacks)
