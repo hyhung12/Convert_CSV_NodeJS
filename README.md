@@ -1,14 +1,9 @@
-
-
-
-
-
 # Mongoose_To_CSV
 - **Requirements:**
 ```
 npm i csv-writer
 ```
-- Code:
+- **Code:**
 + **Step 1: Import the function createObjectCsvWriter**
 ```
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
@@ -31,9 +26,10 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('<atlas_collection>', {})
 ```
 + **Step 5: Function exportToCsv**
-  - Data : lean<br><br>
+  - Data : <br><br>
 
   ```
+  // an array of JS object
   const data = await User.find().lean();
   ```
   - Create a **CsvWriter** object by using function **createObjectCsvWriter**<br><br>
@@ -55,6 +51,35 @@ const User = mongoose.model('<atlas_collection>', {})
 
 - **Complete code**
 ```
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://hyhung12:babykute@cluster0.ijfrnwn.mongodb.net/mongo_test');
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  age: String,
+  level: String
+});
+
+const User = mongoose.model('test12', userSchema);
+
+async function exportToCsv() {
+  const data = await User.find().lean();
+
+  const csvWriter = createCsvWriter({
+    path: 'users.csv',
+    header: [
+      { id: 'Name', title: 'Name' },
+      { id: 'Age', title: 'Age'},
+      { id: 'Level', title: 'Level' }
+    ]   
+  });
+
+  csvWriter.writeRecords(data);
+}
+
+exportToCsv();
 
 ```
 
