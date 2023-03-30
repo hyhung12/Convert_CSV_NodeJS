@@ -1,4 +1,16 @@
-# Mongoose_To_CSV
+### CSV_HTTPS_To_CSV (pipe is better for handle data stream)
+```
+const https = require('https');
+const fs = require('fs');
+
+const fileStream = fs.createWriteStream('data.csv');
+const url = 'https://people.sc.fsu.edu/~jburkardt/data/csv/deniro.csv'
+
+https.get(url, function(response){
+    response.pipe(fileStream);
+});
+```
+### Mongoose_To_CSV
 - **Requirements:**
 ```
 npm i csv-writer
